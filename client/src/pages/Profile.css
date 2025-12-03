@@ -62,8 +62,8 @@
   margin: 0 auto 25px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid #000;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border: 4px solid #FFD700;
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
   transition: all 0.3s ease;
 }
 
@@ -116,7 +116,7 @@
 
 .info-row:hover {
   background: #fff;
-  border-color: #000;
+  border-color: #FFD700;
   transform: translateX(5px);
 }
 
@@ -144,8 +144,8 @@
 
 .profile-stats:hover {
   background: #fff;
-  border-color: #000;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  border-color: #FFD700;
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
 }
 
 .profile-stats h2 {
@@ -201,14 +201,14 @@
 }
 
 .stat-item:hover {
-  border-color: #000;
+  border-color: #FFD700;
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(255, 215, 0, 0.2);
 }
 
 .stat-item.highlight {
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  border: 2px solid #000;
+  border: 2px solid #FFD700;
 }
 
 .stat-item.highlight .stat-icon {
@@ -217,12 +217,12 @@
 }
 
 .stat-item.highlight .stat-number {
-  color: #fff;
+  color: #FFD700;
   font-size: 2.5rem;
 }
 
 .stat-item.highlight .stat-label {
-  color: #e0e0e0;
+  color: #FFD700;
 }
 
 .stat-icon {
@@ -447,9 +447,9 @@
 }
 
 .btn-tutorial {
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
+  background: #FFD700;
+  color: #000;
+  border: 2px solid #FFD700;
   padding: 14px 32px;
   border-radius: 12px;
   font-weight: 700;
@@ -468,7 +468,7 @@
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.1), transparent);
   transition: left 0.5s;
 }
 
@@ -478,7 +478,7 @@
 
 .btn-tutorial:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
 }
 
 
@@ -490,7 +490,7 @@
 
 .stat-item.clickable:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 12px 30px rgba(255, 215, 0, 0.3);
 }
 
 .stat-badge {

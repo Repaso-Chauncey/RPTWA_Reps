@@ -1,7 +1,7 @@
 {
-  "short_name": "Baseball PWA",
-  "name": "Baseball Task Manager",
-  "description": "Manage your baseball training, games, and equipment",
+  "short_name": "Calisthenics Reps",
+  "name": "Calisthenics Reps - Fitness Tracker",
+  "description": "Track your calisthenics workouts, push-ups, pull-ups, squats, and more",
   "icons": [
     {
       "src": "icon-192.png",
@@ -18,7 +18,7 @@
   ],
   "start_url": "/",
   "display": "standalone",
-  "theme_color": "#1e3a8a",
-  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "background_color": "#FFD700",
   "orientation": "portrait"
 }

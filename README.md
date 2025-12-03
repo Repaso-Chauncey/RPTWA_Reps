@@ -1,14 +1,14 @@
-# ⚾ Baseball PWA - Full-Stack Progressive Web Application
+# 💪 Calisthenics Reps - Full-Stack Progressive Web Application
 
-A baseball-themed task management Progressive Web App with secure authentication, offline support, and real-time updates.
+A calisthenics-themed fitness tracking Progressive Web App with secure authentication, offline support, and real-time updates.
 
 ## Features
 
 - ✅ User Registration & Login (Local + Google OAuth 2.0)
-- ✅ Create, Edit, Delete Tasks (Baseball-themed categories)
+- ✅ Create, Edit, Delete Workouts (Calisthenics-themed categories)
 - ✅ PWA with Offline Support
 - ✅ Installable on Desktop & Mobile
-- ✅ 4+ Pages (Login, Register, Dashboard, Tasks, Profile)
+- ✅ 4+ Pages (Login, Register, Dashboard, Workouts, Profile)
 - ✅ RESTful API with Express
 - ✅ MySQL Database (XAMPP/phpMyAdmin)
 
@@ -106,7 +106,7 @@ Access the app at: http://localhost:3000
 
 1. Open the app in Chrome/Edge
 2. Click the install icon in the address bar
-3. Or use browser menu: "Install Baseball PWA"
+3. Or use browser menu: "Install Calisthenics Reps"
 4. App will be installed and work offline!
 
 ## API Endpoints
@@ -118,18 +118,19 @@ Access the app at: http://localhost:3000
 - `GET /auth/google/callback` - OAuth callback
 
 ### Tasks (Protected)
-- `GET /api/tasks` - Get all user tasks
-- `POST /api/tasks` - Create new task
-- `PUT /api/tasks/:id` - Update task
-- `DELETE /api/tasks/:id` - Delete task
+- `GET /api/tasks` - Get all user workouts
+- `POST /api/tasks` - Create new workout
+- `PUT /api/tasks/:id` - Update workout
+- `DELETE /api/tasks/:id` - Delete workout
 
-## Task Categories
+## Workout Categories
 
-- 🏋️ Training - Practice sessions
-- ⚾ Game - Scheduled matches
-- 🧤 Equipment - Gear maintenance
-- 👥 Team Meeting - Strategy discussions
-- 📌 Other - General tasks
+- 💪 Push-ups - Upper body pushing exercises
+- 🏋️ Pull-ups - Upper body pulling exercises
+- 🦵 Squats - Lower body exercises
+- 🎯 Core - Abdominal and core exercises
+- 🧘 Stretching - Flexibility and mobility
+- 📌 Other - General workouts
 
 ## Database Schema
 
@@ -173,4 +174,4 @@ MIT
 
 ## Author
 
-Baseball PWA Team
+Calisthenics Reps Team

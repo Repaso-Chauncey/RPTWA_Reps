@@ -64,8 +64,8 @@
 }
 
 .close-btn {
-  background: #000;
-  color: #fff;
+  background: #FFD700;
+  color: #000;
   border: none;
   width: 40px;
   height: 40px;
@@ -79,7 +79,7 @@
 }
 
 .close-btn:hover {
-  background: #333;
+  background: #FFC000;
   transform: rotate(90deg);
 }
 
@@ -103,9 +103,9 @@
 }
 
 .summary-card:hover {
-  border-color: #000;
+  border-color: #FFD700;
   transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 20px rgba(255, 215, 0, 0.2);
 }
 
 .summary-icon {
@@ -178,7 +178,7 @@
 
 .achievement-card.unlocked {
   background: linear-gradient(135deg, #000 0%, #1a1a1a 100%);
-  border-color: #000;
+  border-color: #FFD700;
 }
 
 .achievement-card.unlocked .achievement-icon {
@@ -195,11 +195,11 @@
 }
 
 .achievement-card.unlocked .achievement-info h4 {
-  color: #fff;
+  color: #FFD700;
 }
 
 .achievement-card.unlocked .achievement-info p {
-  color: #e0e0e0;
+  color: #FFD700;
 }
 
 .achievement-card.locked {
@@ -265,7 +265,7 @@
 }
 
 .progress-fill.complete {
-  background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+  background: linear-gradient(90deg, #FFD700 0%, #FFC000 100%);
 }
 
 .progress-text {
@@ -297,7 +297,7 @@
 
 .activity-item:hover {
   background: #fff;
-  border-color: #000;
+  border-color: #FFD700;
   transform: translateX(5px);
 }
 

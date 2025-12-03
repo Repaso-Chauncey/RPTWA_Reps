@@ -73,7 +73,7 @@
 
 .stat-card.highlight {
   background: linear-gradient(135deg, #000000 0%, #1a1a1a 100%);
-  border: 2px solid #fff;
+  border: 2px solid #FFD700;
 }
 
 .stat-card.highlight .stat-icon {
@@ -82,12 +82,12 @@
 }
 
 .stat-card.highlight .stat-info h3 {
-  color: #fff;
+  color: #FFD700;
   font-size: 3rem;
 }
 
 .stat-card.highlight .stat-info p {
-  color: #e0e0e0;
+  color: #FFD700;
   font-weight: 600;
 }
 
@@ -161,7 +161,7 @@
   top: 0;
   width: 4px;
   height: 100%;
-  background: #000;
+  background: #FFD700;
   border-radius: 12px 0 0 12px;
   transform: scaleY(0);
   transition: transform 0.3s ease;
@@ -173,9 +173,9 @@
 
 .task-item:hover {
   transform: translateX(8px);
-  border-color: #000;
+  border-color: #FFD700;
   background: #fff;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.2);
 }
 
 .task-category {
@@ -230,24 +230,24 @@
 }
 
 .priority-high {
-  background: #000;
-  color: #fff;
-  border-color: #000;
+  background: #FFD700;
+  color: #000;
+  border-color: #FFD700;
 }
 
 .btn-view-all {
   width: 100%;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.98);
+  background: #FFD700;
   color: #000;
-  border: 2px solid rgba(255, 255, 255, 0.98);
+  border: 2px solid #FFD700;
   border-radius: 12px;
   font-size: 1.05rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s ease;
   letter-spacing: 0.5px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
   position: relative;
   overflow: hidden;
 }
@@ -269,9 +269,9 @@
 }
 
 .btn-view-all:hover {
-  color: #fff;
+  color: #FFD700;
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.5);
 }
 
 .btn-view-all span {

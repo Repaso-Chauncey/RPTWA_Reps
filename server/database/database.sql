@@ -1,8 +1,8 @@
--- Baseball PWA Database Schema
+-- Calisthenics Reps Database Schema
 -- Run this in phpMyAdmin
 
-CREATE DATABASE IF NOT EXISTS baseball_pwa;
-USE baseball_pwa;
+CREATE DATABASE IF NOT EXISTS `calisthenics-reps`;
+USE `calisthenics-reps`;
 
 -- Users table
 CREATE TABLE users (
@@ -18,13 +18,13 @@ CREATE TABLE users (
     INDEX idx_google_id (google_id)
 );
 
--- Tasks table (Baseball-themed: training sessions, games, equipment checks, etc.)
+-- Tasks table (Calisthenics-themed: push-ups, pull-ups, squats, core, stretching, etc.)
 CREATE TABLE tasks (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     title VARCHAR(255) NOT NULL,
     description TEXT,
-    category ENUM('training', 'game', 'equipment', 'team_meeting', 'other') DEFAULT 'other',
+    category ENUM('push-ups', 'pull-ups', 'squats', 'core', 'stretching', 'other') DEFAULT 'other',
     priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
     status ENUM('pending', 'in_progress', 'completed') DEFAULT 'pending',
     due_date DATETIME,
@@ -50,10 +50,10 @@ CREATE TABLE sessions (
 
 -- Insert sample data
 INSERT INTO users (username, email, password) VALUES 
-('demo_player', 'demo@baseball.com', '$2b$10$YourHashedPasswordHere');
+('demo_athlete', 'demo@calisthenics.com', '$2b$10$YourHashedPasswordHere');
 
 INSERT INTO tasks (user_id, title, description, category, priority, status, due_date) VALUES
-(1, 'Batting Practice', 'Work on swing mechanics and timing', 'training', 'high', 'pending', DATE_ADD(NOW(), INTERVAL 1 DAY)),
-(1, 'Team Game vs Yankees', 'Home game at 7 PM', 'game', 'high', 'pending', DATE_ADD(NOW(), INTERVAL 3 DAY)),
-(1, 'Check Baseball Glove', 'Oil and condition leather', 'equipment', 'medium', 'pending', DATE_ADD(NOW(), INTERVAL 2 DAY)),
-(1, 'Strategy Meeting', 'Discuss playoff tactics', 'team_meeting', 'medium', 'completed', DATE_SUB(NOW(), INTERVAL 1 DAY));
+(1, 'Morning Push-ups', 'Complete 50 push-ups with proper form', 'push-ups', 'high', 'pending', DATE_ADD(NOW(), INTERVAL 1 DAY)),
+(1, 'Pull-up Challenge', 'Work on 20 pull-ups in sets of 5', 'pull-ups', 'high', 'pending', DATE_ADD(NOW(), INTERVAL 3 DAY)),
+(1, 'Squat Session', 'Complete 100 bodyweight squats', 'squats', 'medium', 'pending', DATE_ADD(NOW(), INTERVAL 2 DAY)),
+(1, 'Core Workout', 'Planks and ab exercises for 15 minutes', 'core', 'medium', 'completed', DATE_SUB(NOW(), INTERVAL 1 DAY));

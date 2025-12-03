@@ -125,7 +125,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: #fff;
+  background: #FFD700;
   transition: width 0.3s ease;
 }
 
@@ -157,7 +157,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: #fff;
+  background: #FFD700;
   transition: width 0.3s ease;
 }
 
@@ -166,13 +166,13 @@
 }
 
 .navbar-links a:hover {
-  color: #fff;
+  color: #FFD700;
 }
 
 .btn-logout {
-  background: #fff;
+  background: #FFD700;
   color: #000;
-  border: 2px solid #fff;
+  border: 2px solid #FFD700;
   padding: 10px 24px;
   border-radius: 10px;
   cursor: pointer;
@@ -201,9 +201,9 @@
 }
 
 .btn-logout:hover {
-  color: #fff;
+  color: #FFD700;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
 }
 
 .btn-logout span {

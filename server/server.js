@@ -19,7 +19,7 @@ const session = require('express-session');
 // Display environment banner
 console.log('');
 console.log('═══════════════════════════════════════════════════════');
-console.log(`  ⚾ Baseball PWA - ${getEnvironmentName().toUpperCase()} MODE`);
+console.log(`  💪 Calisthenics Reps - ${getEnvironmentName().toUpperCase()} MODE`);
 console.log('═══════════════════════════════════════════════════════');
 console.log(`  📁 Config loaded from: ${envResult.loadedFrom}`);
 console.log(`  🗄️  Database: ${process.env.DB_NAME} @ ${process.env.DB_HOST}:${process.env.DB_PORT || 3306}`);
@@ -102,7 +102,7 @@ app.use('/api/tasks', authenticateToken, taskRoutes);
 
 // Health check
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok', message: 'Baseball PWA API is running', realtime: true });
+  res.json({ status: 'ok', message: 'Calisthenics Reps API is running', realtime: true });
 });
 
 // Serve static files from React build in production
@@ -118,6 +118,6 @@ if (process.env.NODE_ENV === 'production') {
 
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`⚾ Server running on port ${PORT}`);
+  console.log(`💪 Server running on port ${PORT}`);
   console.log('🔌 Socket.IO real-time enabled ✅');
 });
