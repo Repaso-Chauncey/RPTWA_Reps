@@ -14,8 +14,11 @@ function Tasks({ setAuth }) {
   const [editingTask, setEditingTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({
-    trainingSessions: 0,
-    gamesPlayed: 0,
+    pushUps: 0,
+    pullUps: 0,
+    squats: 0,
+    core: 0,
+    stretching: 0,
     completed: 0,
     total: 0
   });
@@ -75,7 +78,7 @@ function Tasks({ setAuth }) {
   };
 
   const handleDeleteTask = async (id) => {
-    if (!window.confirm('Delete this task?')) return;
+    if (!window.confirm('Delete this workout?')) return;
 
     try {
       const token = localStorage.getItem('token');
@@ -83,7 +86,7 @@ function Tasks({ setAuth }) {
         headers: { Authorization: `Bearer ${token}` }
       });
       fetchTasks();
-      fetchStats(); // Refresh stats after deleting
+      fetchStats();
     } catch (error) {
       console.error('Error deleting task:', error);
     }
@@ -92,7 +95,7 @@ function Tasks({ setAuth }) {
   const handleSaveTask = () => {
     setShowModal(false);
     fetchTasks();
-    fetchStats(); // Refresh stats after saving
+    fetchStats();
   };
 
   return (
@@ -101,32 +104,42 @@ function Tasks({ setAuth }) {
       
       <div className="tasks-content">
         <div className="tasks-header">
-          <h1>⚾ My Tasks</h1>
+          <h1>💪 My Workouts</h1>
           <button className="btn-create" onClick={handleCreateTask}>
-            + New Task
+            + New Workout
           </button>
         </div>
 
-        <div className="baseball-stats-summary">
+        <div className="calisthenics-stats-summary">
           <div className="stat-box">
-            <div className="stat-icon">🏋️</div>
-            <div className="stat-value">{stats.trainingSessions}</div>
-            <div className="stat-label">Training Sessions</div>
+            <div className="stat-icon">💪</div>
+            <div className="stat-value">{stats.pushUps || 0}</div>
+            <div className="stat-label">Push-ups</div>
           </div>
           <div className="stat-box">
-            <div className="stat-icon">⚾</div>
-            <div className="stat-value">{stats.gamesPlayed}</div>
-            <div className="stat-label">Games Played</div>
+            <div className="stat-icon">🏋️</div>
+            <div className="stat-value">{stats.pullUps || 0}</div>
+            <div className="stat-label">Pull-ups</div>
+          </div>
+          <div className="stat-box">
+            <div className="stat-icon">🦵</div>
+            <div className="stat-value">{stats.squats || 0}</div>
+            <div className="stat-label">Squats</div>
+          </div>
+          <div className="stat-box">
+            <div className="stat-icon">🎯</div>
+            <div className="stat-value">{stats.core || 0}</div>
+            <div className="stat-label">Core</div>
           </div>
           <div className="stat-box">
             <div className="stat-icon">✅</div>
-            <div className="stat-value">{stats.completed}</div>
-            <div className="stat-label">Tasks Completed</div>
+            <div className="stat-value">{stats.completed || 0}</div>
+            <div className="stat-label">Completed</div>
           </div>
           <div className="stat-box">
             <div className="stat-icon">📊</div>
-            <div className="stat-value">{stats.total}</div>
-            <div className="stat-label">Total Tasks</div>
+            <div className="stat-value">{stats.total || 0}</div>
+            <div className="stat-label">Total</div>
           </div>
         </div>
 
@@ -158,14 +171,14 @@ function Tasks({ setAuth }) {
         </div>
 
         {loading ? (
-          <p>Loading tasks...</p>
+          <p>Loading workouts...</p>
         ) : filteredTasks.length > 0 ? (
           <div className="tasks-grid">
             {filteredTasks.map(task => (
               <div key={task.id} className="task-card">
                 <div className="task-card-header">
                   <span className="task-category-badge">
-                    {getCategoryIcon(task.category)} {task.category}
+                    {getCategoryIcon(task.category)} {formatCategory(task.category)}
                   </span>
                   <span className={`priority-badge priority-${task.priority}`}>
                     {task.priority}
@@ -196,7 +209,7 @@ function Tasks({ setAuth }) {
             ))}
           </div>
         ) : (
-          <p className="no-tasks">No tasks found</p>
+          <p className="no-tasks">No workouts found. Start your fitness journey! 💪</p>
         )}
       </div>
 
@@ -213,13 +226,26 @@ function Tasks({ setAuth }) {
 
 function getCategoryIcon(category) {
   const icons = {
-    training: '🏋️',
-    game: '⚾',
-    equipment: '🧤',
-    team_meeting: '👥',
-    other: '📌'
+    'push-ups': '💪',
+    'pull-ups': '🏋️',
+    'squats': '🦵',
+    'core': '🎯',
+    'stretching': '🧘',
+    'other': '📌'
   };
   return icons[category] || icons.other;
+}
+
+function formatCategory(category) {
+  const names = {
+    'push-ups': 'Push-ups',
+    'pull-ups': 'Pull-ups',
+    'squats': 'Squats',
+    'core': 'Core',
+    'stretching': 'Stretching',
+    'other': 'Other'
+  };
+  return names[category] || category;
 }
 
 export default Tasks;

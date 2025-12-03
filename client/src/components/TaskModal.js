@@ -60,7 +60,7 @@ function TaskModal({ task, onClose, onSave }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
-          <h2>{task ? 'Edit Task' : 'Create New Task'}</h2>
+          <h2>{task ? '✏️ Edit Workout' : '💪 Create New Workout'}</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
@@ -92,11 +92,12 @@ function TaskModal({ task, onClose, onSave }) {
             <div className="form-group">
               <label>Category</label>
               <select name="category" value={formData.category} onChange={handleChange}>
-                <option value="training">Training</option>
-                <option value="game">Game</option>
-                <option value="equipment">Equipment</option>
-                <option value="team_meeting">Team Meeting</option>
-                <option value="other">Other</option>
+                <option value="push-ups">💪 Push-ups</option>
+                <option value="pull-ups">🏋️ Pull-ups</option>
+                <option value="squats">🦵 Squats</option>
+                <option value="core">🎯 Core</option>
+                <option value="stretching">🧘 Stretching</option>
+                <option value="other">📌 Other</option>
               </select>
             </div>
 
@@ -136,7 +137,7 @@ function TaskModal({ task, onClose, onSave }) {
               Cancel
             </button>
             <button type="submit" className="btn-save" disabled={loading}>
-              {loading ? 'Saving...' : 'Save Task'}
+              {loading ? 'Saving...' : 'Save Workout'}
             </button>
           </div>
         </form>

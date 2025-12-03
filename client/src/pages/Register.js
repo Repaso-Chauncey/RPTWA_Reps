@@ -56,7 +56,7 @@ function Register({ setAuth }) {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h1>⚾ Baseball PWA</h1>
+          <h1>💪 Calisthenics Reps</h1>
           <h2>Register</h2>
         </div>
 

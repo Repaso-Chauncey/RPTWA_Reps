@@ -10,26 +10,25 @@ const API_URL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'prod
 function Profile({ setAuth }) {
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState({
-    trainingSessions: 0,
-    gamesPlayed: 0,
+    pushUps: 0,
+    pullUps: 0,
+    squats: 0,
+    core: 0,
+    stretching: 0,
     tasksCompleted: 0,
-    equipmentChecks: 0,
-    teamMeetings: 0,
-    totalTasks: 0
+    totalTasks: 0,
+    totalReps: 0
   });
   const [loading, setLoading] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [showAchievements, setShowAchievements] = useState(false);
 
   useEffect(() => {
-    console.log('Profile: Checking localStorage...');
     const userData = localStorage.getItem('user');
-    console.log('Profile: userData from localStorage:', userData);
     
     if (userData) {
       try {
         const parsedUser = JSON.parse(userData);
-        console.log('Profile: Parsed user:', parsedUser);
         setUser(parsedUser);
         fetchUserStats();
       } catch (error) {
@@ -37,7 +36,6 @@ function Profile({ setAuth }) {
         setLoading(false);
       }
     } else {
-      console.log('Profile: No user data found, trying to decode token...');
       const token = localStorage.getItem('token');
       if (token) {
         try {
@@ -47,7 +45,6 @@ function Profile({ setAuth }) {
             username: payload.username,
             email: payload.email
           };
-          console.log('Profile: Decoded user from token:', decodedUser);
           setUser(decodedUser);
           localStorage.setItem('user', JSON.stringify(decodedUser));
           fetchUserStats();
@@ -71,13 +68,21 @@ function Profile({ setAuth }) {
       const tasks = response.data;
       const completedTasks = tasks.filter(t => t.status === 'completed');
       
+      const pushUps = completedTasks.filter(t => t.category === 'push-ups').length;
+      const pullUps = completedTasks.filter(t => t.category === 'pull-ups').length;
+      const squats = completedTasks.filter(t => t.category === 'squats').length;
+      const core = completedTasks.filter(t => t.category === 'core').length;
+      const stretching = completedTasks.filter(t => t.category === 'stretching').length;
+      
       setStats({
-        trainingSessions: completedTasks.filter(t => t.category === 'training').length,
-        gamesPlayed: completedTasks.filter(t => t.category === 'game').length,
+        pushUps,
+        pullUps,
+        squats,
+        core,
+        stretching,
         tasksCompleted: completedTasks.length,
-        equipmentChecks: completedTasks.filter(t => t.category === 'equipment').length,
-        teamMeetings: completedTasks.filter(t => t.category === 'team_meeting').length,
-        totalTasks: tasks.length
+        totalTasks: tasks.length,
+        totalReps: (pushUps + pullUps + squats + core) * 10
       });
     } catch (error) {
       console.error('Error fetching user stats:', error);
@@ -93,8 +98,9 @@ function Profile({ setAuth }) {
         justifyContent: 'center', 
         alignItems: 'center', 
         height: '100vh',
-        color: 'white',
-        fontSize: '1.5rem'
+        color: '#FFD700',
+        fontSize: '1.5rem',
+        background: '#000'
       }}>
         Loading profile...
       </div>
@@ -108,18 +114,19 @@ function Profile({ setAuth }) {
         justifyContent: 'center', 
         alignItems: 'center', 
         height: '100vh',
-        color: 'white',
+        color: '#FFD700',
         fontSize: '1.5rem',
         flexDirection: 'column',
-        gap: '20px'
+        gap: '20px',
+        background: '#000'
       }}>
         <p>No user data found</p>
         <button 
           onClick={() => window.location.href = '/login'}
           style={{
             padding: '12px 24px',
-            background: 'white',
-            color: '#667eea',
+            background: '#FFD700',
+            color: '#000',
             border: 'none',
             borderRadius: '8px',
             cursor: 'pointer',
@@ -144,11 +151,11 @@ function Profile({ setAuth }) {
                 <img src={user.profile_picture} alt={user.username} />
               ) : (
                 <div className="avatar-placeholder">
-                  {user.username ? user.username.charAt(0).toUpperCase() : '👤'}
+                  {user.username ? user.username.charAt(0).toUpperCase() : '💪'}
                 </div>
               )}
             </div>
-            <h1>⚾ {user.username || 'Unknown User'}</h1>
+            <h1>💪 {user.username || 'Athlete'}</h1>
             <p>📧 {user.email || 'No email'}</p>
           </div>
 
@@ -179,43 +186,55 @@ function Profile({ setAuth }) {
           </div>
 
           <div className="profile-stats">
-            <h2>⚾ Baseball Stats</h2>
-            <p>Track your training progress, game performance, and equipment maintenance</p>
+            <h2>💪 Calisthenics Stats</h2>
+            <p>Track your bodyweight training progress and achievements</p>
             <div className="stats-grid-profile">
               <div className="stat-item highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+                <span className="stat-icon">🔥</span>
+                <span className="stat-number">{stats.totalReps}</span>
+                <span className="stat-label">Total Reps</span>
+                <span className="stat-badge">🏆</span>
+              </div>
+              <div className="stat-item highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+                <span className="stat-icon">💪</span>
+                <span className="stat-number">{stats.pushUps}</span>
+                <span className="stat-label">Push-up Sessions</span>
+                <span className="stat-badge">🏆</span>
+              </div>
+              <div className="stat-item highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
                 <span className="stat-icon">🏋️</span>
-                <span className="stat-number">{stats.trainingSessions}</span>
-                <span className="stat-label">Training Sessions</span>
+                <span className="stat-number">{stats.pullUps}</span>
+                <span className="stat-label">Pull-up Sessions</span>
                 <span className="stat-badge">🏆</span>
               </div>
-              <div className="stat-item highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-                <span className="stat-icon">⚾</span>
-                <span className="stat-number">{stats.gamesPlayed}</span>
-                <span className="stat-label">Games Played</span>
+              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+                <span className="stat-icon">🦵</span>
+                <span className="stat-number">{stats.squats}</span>
+                <span className="stat-label">Squat Sessions</span>
                 <span className="stat-badge">🏆</span>
               </div>
-              <div className="stat-item highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+                <span className="stat-icon">🎯</span>
+                <span className="stat-number">{stats.core}</span>
+                <span className="stat-label">Core Workouts</span>
+                <span className="stat-badge">🏆</span>
+              </div>
+              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+                <span className="stat-icon">🧘</span>
+                <span className="stat-number">{stats.stretching}</span>
+                <span className="stat-label">Stretching</span>
+                <span className="stat-badge">🏆</span>
+              </div>
+              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
                 <span className="stat-icon">✅</span>
                 <span className="stat-number">{stats.tasksCompleted}</span>
-                <span className="stat-label">Tasks Completed</span>
-                <span className="stat-badge">🏆</span>
-              </div>
-              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-                <span className="stat-icon">🧤</span>
-                <span className="stat-number">{stats.equipmentChecks}</span>
-                <span className="stat-label">Equipment Checks</span>
-                <span className="stat-badge">🏆</span>
-              </div>
-              <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-                <span className="stat-icon">👥</span>
-                <span className="stat-number">{stats.teamMeetings}</span>
-                <span className="stat-label">Team Meetings</span>
+                <span className="stat-label">Workouts Done</span>
                 <span className="stat-badge">🏆</span>
               </div>
               <div className="stat-item clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
                 <span className="stat-icon">📋</span>
                 <span className="stat-number">{stats.totalTasks}</span>
-                <span className="stat-label">Total Tasks</span>
+                <span className="stat-label">Total Workouts</span>
                 <span className="stat-badge">🏆</span>
               </div>
             </div>

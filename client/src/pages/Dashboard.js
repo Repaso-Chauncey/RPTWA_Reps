@@ -19,7 +19,6 @@ function Dashboard({ setAuth }) {
   useEffect(() => {
     fetchTasks();
     
-    // Check if user is new (no tasks and hasn't seen tutorial)
     const hasSeenTutorial = localStorage.getItem('hasSeenTutorial');
     if (!hasSeenTutorial) {
       setShowOnboarding(true);
@@ -36,20 +35,25 @@ function Dashboard({ setAuth }) {
       const tasksData = response.data;
       setTasks(tasksData);
       
-      // Calculate baseball-specific statistics
+      // Calculate calisthenics-specific statistics
       const completedTasks = tasksData.filter(t => t.status === 'completed');
-      const trainingSessions = completedTasks.filter(t => t.category === 'training').length;
-      const gamesPlayed = completedTasks.filter(t => t.category === 'game').length;
+      const pushUps = completedTasks.filter(t => t.category === 'push-ups').length;
+      const pullUps = completedTasks.filter(t => t.category === 'pull-ups').length;
+      const squats = completedTasks.filter(t => t.category === 'squats').length;
+      const core = completedTasks.filter(t => t.category === 'core').length;
+      const stretching = completedTasks.filter(t => t.category === 'stretching').length;
       const tasksCompleted = completedTasks.length;
       
       setStats({
         total: tasksData.length,
         pending: tasksData.filter(t => t.status === 'pending').length,
         completed: tasksCompleted,
-        trainingSessions: trainingSessions,
-        gamesPlayed: gamesPlayed,
-        equipmentChecks: completedTasks.filter(t => t.category === 'equipment').length,
-        teamMeetings: completedTasks.filter(t => t.category === 'team_meeting').length
+        pushUps: pushUps,
+        pullUps: pullUps,
+        squats: squats,
+        core: core,
+        stretching: stretching,
+        totalReps: (pushUps + pullUps + squats + core) * 10 // Estimated reps
       });
     } catch (error) {
       console.error('Error fetching tasks:', error);
@@ -70,67 +74,85 @@ function Dashboard({ setAuth }) {
       
       <div className="dashboard-content">
         <div className="dashboard-header">
-          <h1>⚾ Baseball Dashboard</h1>
-          <p>Manage your training, games, and equipment</p>
+          <h1>💪 Calisthenics Dashboard</h1>
+          <p>Track your bodyweight training progress</p>
         </div>
 
         <div className="stats-grid">
           <div className="stat-card highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+            <div className="stat-icon">🔥</div>
+            <div className="stat-info">
+              <h3>{stats.totalReps || 0}</h3>
+              <p>Total Reps</p>
+            </div>
+            <div className="stat-badge">🏆</div>
+          </div>
+
+          <div className="stat-card highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+            <div className="stat-icon">💪</div>
+            <div className="stat-info">
+              <h3>{stats.pushUps || 0}</h3>
+              <p>Push-up Sessions</p>
+            </div>
+            <div className="stat-badge">🏆</div>
+          </div>
+
+          <div className="stat-card highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
             <div className="stat-icon">🏋️</div>
             <div className="stat-info">
-              <h3>{stats.trainingSessions || 0}</h3>
-              <p>Training Sessions</p>
+              <h3>{stats.pullUps || 0}</h3>
+              <p>Pull-up Sessions</p>
             </div>
             <div className="stat-badge">🏆</div>
           </div>
 
-          <div className="stat-card highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-            <div className="stat-icon">⚾</div>
+          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+            <div className="stat-icon">🦵</div>
             <div className="stat-info">
-              <h3>{stats.gamesPlayed || 0}</h3>
-              <p>Games Played</p>
+              <h3>{stats.squats || 0}</h3>
+              <p>Squat Sessions</p>
             </div>
             <div className="stat-badge">🏆</div>
           </div>
 
-          <div className="stat-card highlight clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+            <div className="stat-icon">🎯</div>
+            <div className="stat-info">
+              <h3>{stats.core || 0}</h3>
+              <p>Core Workouts</p>
+            </div>
+            <div className="stat-badge">🏆</div>
+          </div>
+
+          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
+            <div className="stat-icon">🧘</div>
+            <div className="stat-info">
+              <h3>{stats.stretching || 0}</h3>
+              <p>Stretching Sessions</p>
+            </div>
+            <div className="stat-badge">🏆</div>
+          </div>
+
+          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
             <div className="stat-icon">✅</div>
             <div className="stat-info">
               <h3>{stats.completed || 0}</h3>
-              <p>Tasks Completed</p>
+              <p>Workouts Done</p>
             </div>
             <div className="stat-badge">🏆</div>
           </div>
 
-          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-            <div className="stat-icon">🧤</div>
-            <div className="stat-info">
-              <h3>{stats.equipmentChecks || 0}</h3>
-              <p>Equipment Checks</p>
-            </div>
-            <div className="stat-badge">🏆</div>
-          </div>
-
-          <div className="stat-card clickable" onClick={() => setShowAchievements(true)} title="Click to view achievements">
-            <div className="stat-icon">👥</div>
-            <div className="stat-info">
-              <h3>{stats.teamMeetings || 0}</h3>
-              <p>Team Meetings</p>
-            </div>
-            <div className="stat-badge">🏆</div>
-          </div>
-
-          <div className="stat-card" onClick={() => navigate('/tasks')} title="Click to view tasks">
+          <div className="stat-card" onClick={() => navigate('/tasks')} title="Click to view workouts">
             <div className="stat-icon">⏳</div>
             <div className="stat-info">
               <h3>{stats.pending || 0}</h3>
-              <p>Pending Tasks</p>
+              <p>Pending Workouts</p>
             </div>
           </div>
         </div>
 
         <div className="upcoming-section">
-          <h2>Upcoming Tasks</h2>
+          <h2>🗓️ Upcoming Workouts</h2>
           {loading ? (
             <p>Loading...</p>
           ) : upcomingTasks.length > 0 ? (
@@ -152,12 +174,12 @@ function Dashboard({ setAuth }) {
               ))}
             </div>
           ) : (
-            <p>No upcoming tasks</p>
+            <p>No upcoming workouts. Time to create one! 💪</p>
           )}
         </div>
 
         <button className="btn-view-all" onClick={() => navigate('/tasks')}>
-          View All Tasks
+          <span>View All Workouts</span>
         </button>
       </div>
 
@@ -169,11 +191,12 @@ function Dashboard({ setAuth }) {
 
 function getCategoryIcon(category) {
   const icons = {
-    training: '🏋️',
-    game: '⚾',
-    equipment: '🧤',
-    team_meeting: '👥',
-    other: '📌'
+    'push-ups': '💪',
+    'pull-ups': '🏋️',
+    'squats': '🦵',
+    'core': '🎯',
+    'stretching': '🧘',
+    'other': '📌'
   };
   return icons[category] || icons.other;
 }
