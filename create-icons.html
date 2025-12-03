@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Baseball PWA Icons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            text-align: center;
+        }
+        canvas {
+            border: 2px solid #ccc;
+            margin: 20px;
+            display: inline-block;
+        }
+        button {
+            background: #000;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background: #333;
+        }
+        .instructions {
+            background: #f0f0f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .instructions h3 {
+            margin-top: 0;
+        }
+        .instructions ol {
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <h1>⚾ Baseball PWA Icon Generator</h1>
+    <p>Generate app icons for your Baseball PWA</p>
+
+    <div class="instructions">
+        <h3>📋 Instructions:</h3>
+        <ol>
+            <li>Click the "Generate Icons" button below</li>
+            <li>Two canvases will appear with the icons</li>
+            <li>Right-click each canvas and select "Save image as..."</li>
+            <li>Save the first one as <strong>icon-192.png</strong></li>
+            <li>Save the second one as <strong>icon-512.png</strong></li>
+            <li>Place both files in <strong>client/public/</strong> folder</li>
+            <li>Replace the existing empty icon files</li>
+        </ol>
+    </div>
+
+    <button onclick="generateIcons()">Generate Icons</button>
+    <button onclick="clearIcons()">Clear</button>
+
+    <div id="canvas-container"></div>
+
+    <script>
+        function generateIcons() {
+            const container = document.getElementById('canvas-container');
+            container.innerHTML = '';
+
+            // Generate 192x192 icon
+            createIcon(192, 'icon-192.png');
+            
+            // Generate 512x512 icon
+            createIcon(512, 'icon-512.png');
+        }
+
+        function createIcon(size, filename) {
+            const container = document.getElementById('canvas-container');
+            
+            // Create canvas
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+
+            // Background - White
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fillRect(0, 0, size, size);
+
+            // Draw baseball
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = size * 0.35;
+
+            // Baseball circle - White with black outline
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.fill();
+            ctx.strokeStyle = '#000000';
+            ctx.lineWidth = size * 0.02;
+            ctx.stroke();
+
+            // Baseball stitches (red)
+            ctx.strokeStyle = '#DC143C';
+            ctx.lineWidth = size * 0.015;
+            ctx.lineCap = 'round';
+
+            // Left stitch curve
+            ctx.beginPath();
+            ctx.arc(centerX - radius * 0.3, centerY, radius * 0.8, -Math.PI * 0.4, Math.PI * 0.4);
+            ctx.stroke();
+
+            // Right stitch curve
+            ctx.beginPath();
+            ctx.arc(centerX + radius * 0.3, centerY, radius * 0.8, Math.PI * 0.6, Math.PI * 1.4);
+            ctx.stroke();
+
+            // Stitch marks
+            const stitchCount = 8;
+            ctx.lineWidth = size * 0.01;
+            
+            for (let i = 0; i < stitchCount; i++) {
+                const angle = (i / stitchCount) * Math.PI - Math.PI * 0.5;
+                const x1 = centerX - radius * 0.3 + Math.cos(angle) * radius * 0.8;
+                const y1 = centerY + Math.sin(angle) * radius * 0.8;
+                const x2 = x1 - Math.cos(angle + Math.PI / 2) * size * 0.02;
+                const y2 = y1 - Math.sin(angle + Math.PI / 2) * size * 0.02;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            for (let i = 0; i < stitchCount; i++) {
+                const angle = (i / stitchCount) * Math.PI + Math.PI * 0.5;
+                const x1 = centerX + radius * 0.3 + Math.cos(angle) * radius * 0.8;
+                const y1 = centerY + Math.sin(angle) * radius * 0.8;
+                const x2 = x1 - Math.cos(angle + Math.PI / 2) * size * 0.02;
+                const y2 = y1 - Math.sin(angle + Math.PI / 2) * size * 0.02;
+                
+                ctx.beginPath();
+                ctx.moveTo(x1, y1);
+                ctx.lineTo(x2, y2);
+                ctx.stroke();
+            }
+
+            // Add text label
+            const label = document.createElement('p');
+            label.textContent = `${filename} (${size}x${size})`;
+            label.style.fontWeight = 'bold';
+            label.style.marginTop = '10px';
+
+            // Add download button
+            const downloadBtn = document.createElement('button');
+            downloadBtn.textContent = `Download ${filename}`;
+            downloadBtn.onclick = () => downloadCanvas(canvas, filename);
+
+            const wrapper = document.createElement('div');
+            wrapper.style.display = 'inline-block';
+            wrapper.style.margin = '20px';
+            wrapper.appendChild(canvas);
+            wrapper.appendChild(label);
+            wrapper.appendChild(downloadBtn);
+
+            container.appendChild(wrapper);
+        }
+
+        function downloadCanvas(canvas, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+
+        function clearIcons() {
+            document.getElementById('canvas-container').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
