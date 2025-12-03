@@ -7,6 +7,7 @@ import Tasks from './pages/Tasks';
 import Profile from './pages/Profile';
 import AuthCallback from './pages/AuthCallback';
 import BaseballGame from './pages/BaseballGame';
+import DevIndicator from './components/DevIndicator';
 import './App.css';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
 
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+      <DevIndicator />
       <Routes>
         <Route path="/login" element={!isAuthenticated ? <Login setAuth={setIsAuthenticated} /> : <Navigate to="/dashboard" />} />
         <Route path="/register" element={!isAuthenticated ? <Register setAuth={setIsAuthenticated} /> : <Navigate to="/dashboard" />} />

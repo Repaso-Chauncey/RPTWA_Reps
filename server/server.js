@@ -1,9 +1,33 @@
+// Load environment configuration FIRST (before other requires)
+const { loadEnvironment, validateConfig, getEnvironmentName, isDevelopment } = require('./config/environment');
+const envResult = loadEnvironment();
+
+// Validate required environment variables
+const validation = validateConfig();
+if (!validation.valid) {
+  console.error('❌ Missing required environment variables:', validation.missing.join(', '));
+  console.error('Please check your environment configuration file.');
+  process.exit(1);
+}
+
 const express = require('express');
 const http = require('http');
 const socketIO = require('socket.io');
 const cors = require('cors');
 const session = require('express-session');
-require('dotenv').config();
+
+// Display environment banner
+console.log('');
+console.log('═══════════════════════════════════════════════════════');
+console.log(`  ⚾ Baseball PWA - ${getEnvironmentName().toUpperCase()} MODE`);
+console.log('═══════════════════════════════════════════════════════');
+console.log(`  📁 Config loaded from: ${envResult.loadedFrom}`);
+console.log(`  🗄️  Database: ${process.env.DB_NAME} @ ${process.env.DB_HOST}:${process.env.DB_PORT || 3306}`);
+if (isDevelopment()) {
+  console.log('  🔧 Development mode - detailed logging enabled');
+}
+console.log('═══════════════════════════════════════════════════════');
+console.log('');
 
 // Debug: Check if environment variables are loaded
 console.log('🔍 Google Client ID:', process.env.GOOGLE_CLIENT_ID ? 'Loaded ✅' : 'Missing ❌');

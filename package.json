@@ -5,24 +5,29 @@
   "scripts": {
     "start": "node server/server.js",
     "server": "node server/server.js",
+    "server:dev": "set NODE_ENV=development && nodemon server/server.js",
     "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "build": "cd client && npm run build"
+    "dev": "set NODE_ENV=development && concurrently \"npm run server:dev\" \"npm run client\"",
+    "start:prod": "set NODE_ENV=production && node server/server.js",
+    "build": "cd client && npm run build",
+    "test": "jest"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "mysql2": "^3.6.5",
     "bcrypt": "^5.1.1",
-    "jsonwebtoken": "^9.0.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
+    "jsonwebtoken": "^9.0.2",
+    "mysql2": "^3.6.5",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
-    "express-session": "^1.17.3",
     "socket.io": "^4.6.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",
+    "fast-check": "^4.3.0",
+    "jest": "^30.2.0",
     "nodemon": "^3.0.2"
   }
 }

@@ -8,6 +8,10 @@ client/node_modules/
 .env.development.local
 .env.test.local
 .env.production.local
+.env.production
+
+# Keep .env.development tracked for team sharing (do not ignore)
+# .env.development
 
 # Production build
 client/build/
