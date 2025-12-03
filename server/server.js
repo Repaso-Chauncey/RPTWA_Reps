@@ -97,7 +97,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/auth', authRoutes); // Keep for backward compatibility
 app.use('/api/tasks', authenticateToken, taskRoutes);
 
 // Health check
